@@ -18,7 +18,7 @@ def run(cmd: str):
 def deploy(message: str = "new model prod"):
 
     print("\n" + "=" * 60)
-    print("🚀 DÉPLOIEMENT CLOUD — équivalent docker-compose up")
+    print("🚀 DÉPLOIEMENT CLOUD")
     print("=" * 60)
 
     # Vérifie que model_prod.joblib existe
