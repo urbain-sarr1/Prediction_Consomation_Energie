@@ -1,4 +1,4 @@
-# Dépendances nécessaires pour SERVIR le modèle (API + interface Streamlit).
+# Dépendances nécessaires pour SERVIR le modèle 
 # scikit-learn est fixé à la version d'entraînement pour charger le modèle sans warning.
 
 fastapi==0.115.6
@@ -6,7 +6,7 @@ uvicorn[standard]==0.34.0
 streamlit==1.41.1
 pandas==2.2.3
 numpy==1.26.4
-scikit-learn==1.6.1
+scikit-learn==1.7.2
 xgboost==2.1.4
 joblib==1.4.2
 holidays==0.64
