@@ -1,0 +1,20 @@
+# ============================================================
+# RENDER.YAML
+# ============================================================
+
+services:
+  - type: web
+    name: api-prediction-conso
+    runtime: docker
+    region: frankfurt
+    plan: free
+    branch: main
+    dockerfilePath: ./Dockerfile
+    port: 8000
+    autoDeploy: true                   # rebuild automatique à chaque git push
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PORT
+        value: "8000"
+    healthCheckPath: /health

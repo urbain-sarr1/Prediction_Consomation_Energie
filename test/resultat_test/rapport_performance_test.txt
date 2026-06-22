@@ -1,0 +1,322 @@
+
+
+
+===== DRIFT MONITORING REPORT =====
+
+Nombre de jours test : 1534
+
+===== BASELINE MODELE (TRAINING) =====
+R2 modèle : 0.9801
+MAPE modèle : 1.9274
+
+===== PERFORMANCE API =====
+R2 API : 0.9741
+MAPE API : 2.0877
+
+===== ECARTS =====
+R2 drop : 0.61%
+MAPE variation : 0.16 points
+
+===== VERDICT FINAL =====
+✅ PAS DE DRIFT (modèle stable)
+
+
+============================================================
+RUN DATE : 2026-06-19 15:00:01
+============================================================
+
+Période test : Annee >= 2023
+Nombre de jours test : 1169
+
+--- BASELINE (XGBoost) ---
+R2 test       : 0.9782
+MAPE val (%)  : 1.7240  ← critère de sélection
+MAPE test (%) : 1.9909  ← référence de comparaison
+
+--- APPELS API ---
+Requêtes envoyées  : 1169
+Prédictions valides : 1169
+Échecs / erreurs    : 0
+
+--- PERFORMANCE API ---
+R2 API    : 0.9736
+MAPE API (%) : 2.0897
+
+--- ÉCARTS vs BASELINE TEST ---
+R2 drop (%)              : 0.47  (seuil critique : > 5 %)
+MAPE variation (points)  : 0.10  (seuil critique : > 2 pts)
+
+--- VERDICT ---
+✅ PAS DE DRIFT — modèle v2 validé pour le déploiement
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-19 15:14:48
+============================================================
+
+Période test : Annee >= 2023
+Nombre de jours test : 1169
+
+--- BASELINE (XGBoost) ---
+R2 test       : 0.9782
+MAPE val (%)  : 1.7240  ← critère de sélection
+MAPE test (%) : 1.9909  ← référence de comparaison
+
+--- APPELS API ---
+Requêtes envoyées  : 1169
+Prédictions valides : 1169
+Échecs / erreurs    : 0
+
+--- PERFORMANCE API ---
+R2 API    : 0.9736
+MAPE API (%) : 2.0897
+
+--- ÉCARTS vs BASELINE TEST ---
+R2 drop (%)              : 0.47  (seuil critique : > 5 %)
+MAPE variation (points)  : 0.10  (seuil critique : > 2 pts)
+
+--- VERDICT ---
+✅ PAS DE DRIFT
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-20 15:04:15  |  MODE : RETRAIN
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9898
+MAPE : 1.3510 %
+
+--- MODEL V2 (candidat) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- ÉCARTS V2 vs PROD ---
+R2 amélioration (%)     : -1.03
+MAPE variation (points) : 0.58  (seuil critique : > 2 pts)
+
+--- VERDICT ---
+❌ V2 NON MEILLEUR — déploiement annulé, prod conservé
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-20 15:22:00  |  MODE : RETRAIN
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- MODEL V2 (candidat) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- ÉCARTS V2 vs PROD ---
+R2 amélioration (%)     : -0.00
+MAPE variation (points) : 0.00  (seuil critique : > 2 pts)
+
+--- VERDICT ---
+❌ V2 NON MEILLEUR — déploiement annulé, prod conservé
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-20 15:24:21  |  MODE : DRIFT
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- RÉFÉRENCE CSV (métriques enregistrées de prod) ---
+R2 ref   : 0.9782
+MAPE ref : 1.9909 %
+
+--- ÉCARTS LIVE vs RÉFÉRENCE ---
+R2 drop (%)             : -0.14  (seuil : > 5 %)
+MAPE variation (points) : -1.01  (seuil : > 2 pts)
+
+--- VERDICT ---
+✅ PAS DE DRIFT — modèle prod stable sur les données actuelles
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-20 15:35:12  |  MODE : RETRAIN
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- MODEL V2 (candidat) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- ÉCARTS V2 vs PROD ---
+R2 amélioration (%)     : -0.00
+MAPE variation (points) : 0.00  (seuil critique : > 2 pts)
+
+--- VERDICT ---
+❌ V2 NON MEILLEUR — déploiement annulé, prod conservé
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-20 15:41:12  |  MODE : RETRAIN
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- MODEL V2 (candidat) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- ÉCARTS V2 vs PROD ---
+R2 amélioration (%)     : -0.00
+MAPE variation (points) : 0.00  (seuil critique : > 2 pts)
+
+--- VERDICT ---
+❌ V2 NON MEILLEUR — déploiement annulé, prod conservé
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-20 15:43:22  |  MODE : DRIFT
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- RÉFÉRENCE CSV (métriques enregistrées de prod) ---
+R2 ref   : 0.9782
+MAPE ref : 1.9909 %
+
+--- ÉCARTS LIVE vs RÉFÉRENCE ---
+R2 drop (%)             : -0.14  (seuil : > 5 %)
+MAPE variation (points) : -1.01  (seuil : > 2 pts)
+
+--- VERDICT ---
+✅ PAS DE DRIFT — modèle prod stable sur les données actuelles
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-20 15:45:26  |  MODE : DRIFT
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- RÉFÉRENCE CSV (métriques enregistrées de prod) ---
+R2 ref   : 0.9782
+MAPE ref : 1.9909 %
+
+--- ÉCARTS LIVE vs RÉFÉRENCE ---
+R2 drop (%)             : -0.14  (seuil : > 5 %)
+MAPE variation (points) : -1.01  (seuil : > 2 pts)
+
+--- VERDICT ---
+✅ PAS DE DRIFT — modèle prod stable sur les données actuelles
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-20 15:55:58  |  MODE : RETRAIN
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- MODEL V2 (candidat) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- ÉCARTS V2 vs PROD ---
+R2 amélioration (%)     : -0.00
+MAPE variation (points) : 0.00  (seuil critique : > 2 pts)
+
+--- VERDICT ---
+❌ V2 NON MEILLEUR — déploiement annulé, prod conservé
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-20 16:07:08  |  MODE : RETRAIN
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- MODEL V2 (candidat) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- ÉCARTS V2 vs PROD ---
+R2 amélioration (%)     : -0.00
+MAPE variation (points) : 0.00  (seuil critique : > 2 pts)
+
+--- VERDICT ---
+❌ V2 NON MEILLEUR — déploiement annulé, prod conservé
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-20 16:11:20  |  MODE : DRIFT
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+--- RÉFÉRENCE CSV (métriques enregistrées de prod) ---
+R2 ref   : 0.9782
+MAPE ref : 1.9909 %
+
+--- ÉCARTS LIVE vs RÉFÉRENCE ---
+R2 drop (%)             : -0.14  (seuil : > 5 %)
+MAPE variation (points) : -1.01  (seuil : > 2 pts)
+
+--- VERDICT ---
+✅ PAS DE DRIFT — modèle prod stable sur les données actuelles
+============================================================
+

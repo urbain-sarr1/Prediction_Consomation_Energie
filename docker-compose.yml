@@ -1,0 +1,36 @@
+# ============================================================
+# DOCKER-COMPOSE.YML
+# Orchestration du conteneur API
+# ============================================================
+
+version: "3.9"
+
+services:
+
+  api:
+    # Nom du service
+    container_name: api_prediction_conso
+
+    # Construction depuis le Dockerfile local
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Publication du port : machine_hôte:conteneur
+    # → http://localhost:8000 sur ta machine = port 8000 du conteneur
+    ports:
+      - "8000:8000"
+
+    # Volume monté en lecture/écriture
+    # → src/output/ sur ta machine est directement visible dans le conteneur
+    # → quand safe_swap_models() change model_prod.joblib sur ta machine,
+    #   le conteneur voit immédiatement le nouveau modèle SANS rebuild
+    volumes:
+      - ./src/output:/app/src/output
+
+    # Redémarrage automatique si le conteneur plante
+    restart: unless-stopped
+
+    # Variables d'environnement (optionnel, à compléter si besoin)
+    environment:
+      - PYTHONUNBUFFERED=1   # logs Python visibles en temps réel dans docker logs

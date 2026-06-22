@@ -1,0 +1,72 @@
+Le test de business logic a pour objectif de vérifier la cohérence des prédictions générées 
+par l’API à partir d’entrées identiques ou proches. Il envoie plusieurs requêtes avec les 
+mêmes données afin de contrôler si le modèle produit des résultats stables, puis compare 
+les sorties pour détecter d’éventuelles variations anormales. Le test vérifie également 
+que les prédictions respectent des règles métier simples, comme l’absence de valeurs négatives 
+ou incohérentes. Enfin, il analyse la cohérence globale des résultats afin de s’assurer que le 
+comportement du modèle reste logique et fiable dans des conditions d’utilisation répétées.
+
+
+#################################################
+NEW TEST SESSION - 2026-06-16 20:30:25.693686
+#################################################
+
+===== PREDICTION STABILITY TEST =====
+Total requests: 100
+Successful predictions: 100
+Errors: 0
+Unique outputs: [None]
+
+STABLE MODEL: True
+
+=========================================
+FINAL VERDICT: SUCCESS ✅ (stable model)
+=========================================
+
+#################################################
+NEW TEST SESSION - 2026-06-16 20:30:27.061772
+#################################################
+
+===== PREDICTION STABILITY TEST =====
+Total requests: 100
+Successful predictions: 100
+Errors: 0
+Unique outputs: [None]
+
+STABLE MODEL: True
+
+=========================================
+FINAL VERDICT: SUCCESS ✅ (stable model)
+=========================================
+
+#################################################
+NEW TEST SESSION - 2026-06-16 20:30:43.469648
+#################################################
+
+===== PREDICTION STABILITY TEST =====
+Total requests: 100
+Successful predictions: 100
+Errors: 0
+Unique outputs: [None]
+
+STABLE MODEL: True
+
+=========================================
+FINAL VERDICT: SUCCESS ✅ (stable model)
+=========================================
+
+#################################################
+NEW TEST SESSION - 2026-06-16 20:30:44.945380
+#################################################
+
+===== PREDICTION STABILITY TEST =====
+Total requests: 100
+Successful predictions: 100
+Errors: 0
+Unique outputs: [None]
+
+STABLE MODEL: True
+
+=========================================
+FINAL VERDICT: SUCCESS ✅ (stable model)
+=========================================

@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Données brutes (trop lourdes pour GitHub)
+src/output/dataset_journalier_enrichi.csv
+src/output/resultats_modeles.csv
+src/output/resultats_optimisation_v2.csv
+
+# Modèles — on garde UNIQUEMENT model_prod.joblib
+src/output/model_v2.joblib
+src/output/model_backup.joblib
+src/output/model_tmp_swap.joblib
+src/output/model_prod_*.joblib
+
+# On NE PAS ignorer model_prod.joblib → il doit aller sur GitHub
+# !src/output/model_prod.joblib

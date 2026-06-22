@@ -1,0 +1,5 @@
+﻿Model,R2,RMSE,MAPE (%)
+Decision Tree,0.9525,1984.52,2.67
+Random Forest,0.9724,1511.68,1.99
+KNN,0.9417,2198.15,2.83
+Neural Network,0.9401,2228.9,3.79

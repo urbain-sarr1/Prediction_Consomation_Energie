@@ -1,0 +1,17 @@
+# Dépendances nécessaires pour SERVIR le modèle (API + interface Streamlit).
+# scikit-learn est fixé à la version d'entraînement pour charger le modèle sans warning.
+
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+streamlit==1.41.1
+pandas==2.2.3
+numpy==1.26.4
+scikit-learn==1.6.1
+xgboost==2.1.4
+joblib==1.4.2
+holidays==0.64
+
+# Dépendances supplémentaires uniquement pour RÉ-ENTRAÎNER (pipeline complet),
+# pas nécessaires pour servir le modèle :
+#   requests        (récupération des températures Open-Meteo)
+#   matplotlib      (graphiques de feature importance)

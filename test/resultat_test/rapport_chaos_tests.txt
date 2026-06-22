@@ -1,0 +1,128 @@
+
+L’ensemble des tests réalisés (chaos/fuzz, performance et stress) permet d’évaluer 
+de manière complète le comportement de l’API de prédiction de consommation dans différentes 
+conditions d’utilisation. Le test chaos/fuzz consiste à envoyer des données aléatoires, 
+parfois invalides, afin de vérifier la robustesse du système et sa capacité à ne pas planter 
+face à des entrées imprévues. Le test de performance mesure quant à lui les temps de réponse 
+de l’API avec des données valides, afin d’évaluer sa rapidité et sa stabilité à travers des 
+indicateurs comme la latence moyenne ainsi que les percentiles P95 et P99. Enfin, le test de 
+stress simule une forte charge de requêtes afin d’analyser la capacité de l’API à maintenir 
+ses performances sous pression et à traiter un nombre élevé de requêtes par seconde. 
+Dans l’ensemble, ces tests permettent de confirmer la stabilité, la rapidité et la 
+robustesse du service dans des conditions normales et extrêmes d’utilisation.
+
+
+=========================================
+CHAOS / FUZZ / PERFORMANCE TEST REPORT
+API FASTAPI - PREDICTION CONSOMMATION
+=========================================
+
+
+
+#################################################
+NEW TEST SESSION - 2026-06-16 18:31:54.482490
+#################################################
+
+===== CHAOS FUZZ TEST =====
+
+===== PERFORMANCE TEST =====
+
+===== STRESS TEST =====
+===== RESULTTEST SUMMARY =====
+Fuzz requests: 200
+Fuzz errors: 0
+Fuzz crashes: 0
+Avg fuzz latency: 0.0105s
+P95 latency: 0.0234s
+P99 latency: 0.0789s
+Stress total time: 2.21s
+Requests/sec: 67.76
+=========================================
+
+
+#################################################
+NEW TEST SESSION - 2026-06-16 18:37:55.878100
+#################################################
+
+===== CHAOS FUZZ TEST =====
+
+===== PERFORMANCE TEST =====
+
+===== STRESS TEST =====
+===== RESULTTEST SUMMARY =====
+Fuzz requests: 200
+Fuzz errors: 0
+Fuzz crashes: 0
+Avg fuzz latency: 0.0094s
+P95 latency: 0.0178s
+P99 latency: 0.0204s
+Stress total time: 2.05s
+Requests/sec: 73.19
+=========================================
+
+
+#################################################
+NEW TEST SESSION - 2026-06-16 18:39:55.650600
+#################################################
+
+===== CHAOS FUZZ TEST =====
+
+===== PERFORMANCE TEST =====
+
+===== STRESS TEST =====
+===== RESULTTEST SUMMARY =====
+Fuzz requests: 100
+Fuzz errors: 0
+Fuzz crashes: 0
+Avg fuzz latency: 0.0113s
+P95 latency: 0.0140s
+P99 latency: 0.0144s
+Stress total time: 1.88s
+Requests/sec: 79.88
+=========================================
+
+
+
+#################################################
+NEW TEST SESSION - 2026-06-16 18:59:32.348125
+#################################################
+
+===== CHAOS FUZZ TEST =====
+
+===== PERFORMANCE TEST =====
+
+===== STRESS TEST =====
+===== RESULTTEST SUMMARY =====
+Fuzz requests: 999
+Fuzz errors: 0
+Fuzz crashes: 1
+Avg fuzz latency: 0.0097s
+P95 latency: 0.0140s
+P99 latency: 0.0218s
+Stress total time: 1.91s
+Requests/sec: 78.69
+=========================================
+
+
+#################################################
+NEW TEST SESSION - 2026-06-16 19:53:49.574189
+#################################################
+
+===== CHAOS FUZZ TEST =====
+
+===== PERFORMANCE TEST =====
+
+===== STRESS TEST =====
+===== RESULTTEST SUMMARY =====
+Fuzz requests: 999
+Fuzz errors: 0
+Fuzz crashes: 1
+Fuzz verdict: SUCCESS ✅
+Avg fuzz latency: 0.0104s
+P95 latency: 0.0146s
+P99 latency: 0.0175s
+Performance verdict: SUCCESS ✅
+Stress total time: 1.89s
+Requests/sec: 79.27
+Stress verdict: SUCCESS ✅
+=========================================

@@ -1,0 +1,173 @@
+L’ensemble des tests de charge et de stabilité réalisés (load ramp et soak test) permet 
+d’évaluer de manière progressive et durable le comportement de l’API de prédiction de 
+consommation face à différents niveaux de sollicitation. Le test de charge progressive 
+(load ramp) consiste à augmenter graduellement le nombre de requêtes envoyées à l’API 
+(10, 50, 100, 200 puis 500 requêtes) afin d’identifier à partir de quel seuil les performances 
+commencent à se dégrader, notamment en observant l’évolution de la latence moyenne, du P95 et 
+du taux d’erreurs. Le test de stabilité longue durée (soak test), quant à lui, simule un usage 
+prolongé de l’API sur plusieurs milliers de requêtes afin de détecter d’éventuelles dégradations 
+progressives des performances, des fuites mémoire ou une augmentation anormale de la latence dans 
+le temps. Des points de contrôle intermédiaires permettent également de suivre l’évolution du système 
+au fil de l’exécution. Dans l’ensemble, ces tests fournissent une vision claire de la capacité de 
+l’API à supporter une charge croissante ainsi qu’un fonctionnement prolongé sans perte de performance 
+ni instabilité.
+
+
+=========================================
+CHARGE / STABILITY TEST REPORT
+API FASTAPI - PREDICTION CONSOMMATION
+=========================================
+
+
+#################################################
+NEW TEST SESSION - 2026-06-16 19:49:02.229035
+#################################################
+===== LOAD RAMP TEST =====
+
+[LOAD STEP 10]
+Avg latency: 0.0155s
+P95 latency: 0.0409s
+Errors: 0
+Req/sec: 64.70
+VERDICT: SUCCESS ✅
+
+[LOAD STEP 50]
+Avg latency: 0.0131s
+P95 latency: 0.0155s
+Errors: 0
+Req/sec: 76.12
+VERDICT: SUCCESS ✅
+
+[LOAD STEP 100]
+Avg latency: 0.0128s
+P95 latency: 0.0144s
+Errors: 0
+Req/sec: 78.22
+VERDICT: SUCCESS ✅
+
+[LOAD STEP 200]
+Avg latency: 0.0130s
+P95 latency: 0.0139s
+Errors: 0
+Req/sec: 76.92
+VERDICT: SUCCESS ✅
+
+[LOAD STEP 500]
+Avg latency: 0.0135s
+P95 latency: 0.0144s
+Errors: 0
+Req/sec: 74.16
+VERDICT: SUCCESS ✅
+
+
+#################################################
+NEW TEST SESSION - 2026-06-16 19:49:13.673356
+#################################################
+===== SOAK TEST =====
+
+[CHECKPOINT 500] avg latency = 0.0146s
+[CHECKPOINT 1000] avg latency = 0.0153s
+[CHECKPOINT 1500] avg latency = 0.0164s
+[CHECKPOINT 2000] avg latency = 0.0176s
+
+===== SOAK SUMMARY =====
+Total requests: 2000
+Avg latency: 0.0160s
+P95 latency: 0.0179s
+P99 latency: 0.0190s
+Errors: 0
+Req/sec: 62.58
+VERDICT: SUCCESS ✅
+=========================================
+
+
+=========================================
+FINAL RESULTTEST SUMMARY
+=========================================
+Load ramp steps: [10, 50, 100, 200, 500]
+Load ramp verdicts: ['SUCCESS ✅', 'SUCCESS ✅', 'SUCCESS ✅', 'SUCCESS ✅', 'SUCCESS ✅']
+Soak avg latency: 0.0160s
+Soak P95: 0.0179s
+Soak P99: 0.0190s
+Soak errors: 0
+FINAL VERDICT: SUCCESS ✅
+=========================================
+
+=========================================
+NEW EXECUTION - 2026-06-16 19:57:33.330750
+=========================================
+
+
+#################################################
+NEW TEST SESSION - 2026-06-16 19:57:33.331711
+#################################################
+===== LOAD RAMP TEST =====
+
+[LOAD STEP 10]
+Avg latency: 0.0177s
+P95 latency: 0.0460s
+Errors: 0
+Req/sec: 56.47
+VERDICT: SUCCESS ✅
+
+[LOAD STEP 50]
+Avg latency: 0.0126s
+P95 latency: 0.0141s
+Errors: 0
+Req/sec: 79.15
+VERDICT: SUCCESS ✅
+
+[LOAD STEP 100]
+Avg latency: 0.0135s
+P95 latency: 0.0158s
+Errors: 0
+Req/sec: 74.17
+VERDICT: SUCCESS ✅
+
+[LOAD STEP 200]
+Avg latency: 0.0132s
+P95 latency: 0.0150s
+Errors: 0
+Req/sec: 75.61
+VERDICT: SUCCESS ✅
+
+[LOAD STEP 500]
+Avg latency: 0.0155s
+P95 latency: 0.0197s
+Errors: 0
+Req/sec: 64.52
+VERDICT: SUCCESS ✅
+
+
+#################################################
+NEW TEST SESSION - 2026-06-16 19:57:45.897596
+#################################################
+===== SOAK TEST =====
+
+[CHECKPOINT 500] avg latency = 0.0162s
+[CHECKPOINT 1000] avg latency = 0.0166s
+[CHECKPOINT 1500] avg latency = 0.0177s
+[CHECKPOINT 2000] avg latency = 0.0186s
+
+===== SOAK SUMMARY =====
+Total requests: 2000
+Avg latency: 0.0173s
+P95 latency: 0.0214s
+P99 latency: 0.0245s
+Errors: 0
+Req/sec: 57.89
+VERDICT: SUCCESS ✅
+=========================================
+
+
+=========================================
+FINAL RESULTTEST SUMMARY
+=========================================
+Load ramp steps: [10, 50, 100, 200, 500]
+Load ramp verdicts: ['SUCCESS ✅', 'SUCCESS ✅', 'SUCCESS ✅', 'SUCCESS ✅', 'SUCCESS ✅']
+Soak avg latency: 0.0173s
+Soak P95: 0.0214s
+Soak P99: 0.0245s
+Soak errors: 0
+FINAL VERDICT: SUCCESS ✅
+=========================================

@@ -1,0 +1,39 @@
+Les tests automatisés ont pour objectif de valider le bon fonctionnement de l’API de
+prédiction de consommation électrique, sa robustesse et sa performance avant mise en
+production. Ils vérifient que la page d’accueil est accessible et contient bien 
+l’interface de démonstration, que le endpoint /health confirme le bon état du service
+et le chargement du modèle, et que le endpoint /predict retourne des prédictions cohérentes
+à partir de données valides. Les tests contrôlent également la gestion des erreurs, notamment 
+le rejet des formats de date invalides avec un code HTTP 400, afin de garantir la robustesse du 
+système face aux entrées incorrectes. Enfin, ils mesurent le temps de réponse des requêtes afin 
+d’évaluer la performance globale de l’API. L’ensemble des tests est exécuté automatiquement avec 
+pytest et FastAPI TestClient, simulant des requêtes HTTP et validant les réponses via des assertions. 
+Les résultats sont enregistrés dans un fichier de rapport afin de conserver un historique des 
+exécutions et de suivre l’évolution de la qualité du système dans le temps.
+
+================================================================================
+NOUVEAU RAPPORT DE TEST - 2026-06-16 18:18:10
+================================================================================
+
+[2026-06-16 18:18:10] test_home : SUCCESS - Temps=0.036s
+[2026-06-16 18:18:10] test_health : SUCCESS - Temps=0.0063s
+[2026-06-16 18:18:10] test_predict : SUCCESS - Pred=65310.8 MW | Temps=0.0263s
+[2026-06-16 18:18:10] test_predict_invalid_date : SUCCESS - Temps=0.0095s
+
+================================================================================
+NOUVEAU RAPPORT DE TEST - 2026-06-16 18:18:28
+================================================================================
+
+[2026-06-16 18:18:28] test_home : SUCCESS - Temps=0.0319s
+[2026-06-16 18:18:28] test_health : SUCCESS - Temps=0.0084s
+[2026-06-16 18:18:28] test_predict : SUCCESS - Pred=65310.8 MW | Temps=0.0236s
+[2026-06-16 18:18:28] test_predict_invalid_date : SUCCESS - Temps=0.0089s
+
+================================================================================
+NOUVEAU RAPPORT DE TEST - 2026-06-17 14:13:02
+================================================================================
+
+[2026-06-17 14:13:02] test_home : SUCCESS - Temps=0.225s
+[2026-06-17 14:13:02] test_health : SUCCESS - Temps=0.0072s
+[2026-06-17 14:13:03] test_predict : SUCCESS - Pred=65310.8 MW | Temps=0.8041s
+[2026-06-17 14:13:03] test_predict_invalid_date : SUCCESS - Temps=0.0065s
