@@ -37,3 +37,13 @@ NOUVEAU RAPPORT DE TEST - 2026-06-17 14:13:02
 [2026-06-17 14:13:02] test_health : SUCCESS - Temps=0.0072s
 [2026-06-17 14:13:03] test_predict : SUCCESS - Pred=65310.8 MW | Temps=0.8041s
 [2026-06-17 14:13:03] test_predict_invalid_date : SUCCESS - Temps=0.0065s
+
+================================================================================
+NOUVEAU RAPPORT DE TEST - 2026-06-22 22:07:11
+API cible : https://api-prediction-consomation-energie.onrender.com
+================================================================================
+
+[2026-06-22 22:07:15] test_home : SUCCESS - Temps=4.1995s
+[2026-06-22 22:07:17] test_health : SUCCESS - Temps=1.5585s
+[2026-06-22 22:07:18] test_predict : SUCCESS - Pred=13108.9 MW | Temps=1.3207s
+[2026-06-22 22:07:19] test_predict_invalid_date : SUCCESS - Temps=0.933s

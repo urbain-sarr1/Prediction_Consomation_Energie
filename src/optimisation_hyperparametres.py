@@ -35,9 +35,9 @@ def optimisation_hyperparametres():
     TARGET = "Consommation"
     FEATURES_V2 = [
         "Conso_J1", "Conso_J7", "Conso_moy_7j",
-        "Temperature", "Temperature_max",
-        "Jour_semaine_sin", "Jour_semaine_cos",
-        "Est_weekend", "Est_ferie",
+    "Temperature", "Temperature_max", "Mois_sin", "Mois_cos",
+    "Jour_semaine_sin", "Jour_semaine_cos",
+    "Est_weekend", "Est_ferie",
     ]
 
     ANNEE_TRAIN = 2022   # train : années < 2022

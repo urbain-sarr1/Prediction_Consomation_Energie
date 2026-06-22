@@ -40,33 +40,50 @@ FINAL VERDICT: SUCCESS ✅ (stable model)
 =========================================
 
 #################################################
-NEW TEST SESSION - 2026-06-16 20:30:43.469648
+NEW TEST SESSION - 2026-06-22 22:32:57.107616
+API cible : https://api-prediction-consomation-energie.onrender.com
 #################################################
 
 ===== PREDICTION STABILITY TEST =====
-Total requests: 100
-Successful predictions: 100
-Errors: 0
-Unique outputs: [None]
-
-STABLE MODEL: True
+Total requests          : 20
+Successful predictions  : 20
+Errors                  : 0
+Unique outputs          : [13108.9]
+Stable model            : True
 
 =========================================
-FINAL VERDICT: SUCCESS ✅ (stable model)
+FINAL VERDICT : SUCCESS ✅ (modèle stable)
 =========================================
 
 #################################################
-NEW TEST SESSION - 2026-06-16 20:30:44.945380
+NEW TEST SESSION - 2026-06-22 22:33:25.419414
+API cible : https://api-prediction-consomation-energie.onrender.com
 #################################################
 
 ===== PREDICTION STABILITY TEST =====
-Total requests: 100
-Successful predictions: 100
-Errors: 0
-Unique outputs: [None]
-
-STABLE MODEL: True
+Total requests          : 20
+Successful predictions  : 20
+Errors                  : 0
+Unique outputs          : [13108.9]
+Stable model            : True
 
 =========================================
-FINAL VERDICT: SUCCESS ✅ (stable model)
+FINAL VERDICT : SUCCESS ✅ (modèle stable)
+=========================================
+
+
+#################################################
+NEW TEST SESSION - 2026-06-22 22:37:41.169057
+API cible : https://api-prediction-consomation-energie.onrender.com
+#################################################
+
+===== PREDICTION STABILITY TEST =====
+Total requests          : 20
+Successful predictions  : 20
+Errors                  : 0
+Unique outputs          : [13108.9]
+Stable model            : True
+
+=========================================
+FINAL VERDICT : SUCCESS ✅ (modèle stable)
 =========================================

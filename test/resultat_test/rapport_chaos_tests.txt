@@ -62,7 +62,8 @@ Requests/sec: 73.19
 
 
 #################################################
-NEW TEST SESSION - 2026-06-16 18:39:55.650600
+NEW TEST SESSION - 2026-06-22 22:14:32.151517
+API cible : https://api-prediction-consomation-energie.onrender.com
 #################################################
 
 ===== CHAOS FUZZ TEST =====
@@ -70,59 +71,16 @@ NEW TEST SESSION - 2026-06-16 18:39:55.650600
 ===== PERFORMANCE TEST =====
 
 ===== STRESS TEST =====
-===== RESULTTEST SUMMARY =====
-Fuzz requests: 100
-Fuzz errors: 0
-Fuzz crashes: 0
-Avg fuzz latency: 0.0113s
-P95 latency: 0.0140s
-P99 latency: 0.0144s
-Stress total time: 1.88s
-Requests/sec: 79.88
-=========================================
-
-
-
-#################################################
-NEW TEST SESSION - 2026-06-16 18:59:32.348125
-#################################################
-
-===== CHAOS FUZZ TEST =====
-
-===== PERFORMANCE TEST =====
-
-===== STRESS TEST =====
-===== RESULTTEST SUMMARY =====
-Fuzz requests: 999
-Fuzz errors: 0
-Fuzz crashes: 1
-Avg fuzz latency: 0.0097s
-P95 latency: 0.0140s
-P99 latency: 0.0218s
-Stress total time: 1.91s
-Requests/sec: 78.69
-=========================================
-
-
-#################################################
-NEW TEST SESSION - 2026-06-16 19:53:49.574189
-#################################################
-
-===== CHAOS FUZZ TEST =====
-
-===== PERFORMANCE TEST =====
-
-===== STRESS TEST =====
-===== RESULTTEST SUMMARY =====
-Fuzz requests: 999
-Fuzz errors: 0
-Fuzz crashes: 1
-Fuzz verdict: SUCCESS ✅
-Avg fuzz latency: 0.0104s
-P95 latency: 0.0146s
-P99 latency: 0.0175s
-Performance verdict: SUCCESS ✅
-Stress total time: 1.89s
-Requests/sec: 79.27
-Stress verdict: SUCCESS ✅
+===== RESULT SUMMARY =====
+Fuzz requests    : 100
+Fuzz errors      : 0
+Fuzz crashes     : 0
+Fuzz verdict     : SUCCESS ✅
+Avg fuzz latency : 1.2607s
+P95 latency         : 3.2561s
+P99 latency         : 3.7064s
+Performance verdict : SUCCESS ✅
+Stress total time   : 56.17s
+Requests/sec        : 0.89
+Stress verdict      : SUCCESS ✅
 =========================================

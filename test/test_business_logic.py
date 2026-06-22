@@ -1,27 +1,28 @@
 """
 Le test de business logic a pour objectif de vérifier la cohérence des prédictions générées 
-par l’API à partir d’entrées identiques ou proches. Il envoie plusieurs requêtes avec les 
+par l'API à partir d'entrées identiques ou proches. Il envoie plusieurs requêtes avec les 
 mêmes données afin de contrôler si le modèle produit des résultats stables, puis compare 
-les sorties pour détecter d’éventuelles variations anormales. Le test vérifie également 
-que les prédictions respectent des règles métier simples, comme l’absence de valeurs négatives 
-ou incohérentes. Enfin, il analyse la cohérence globale des résultats afin de s’assurer que le 
-comportement du modèle reste logique et fiable dans des conditions d’utilisation répétées.
-
+les sorties pour détecter d'éventuelles variations anormales. Le test vérifie également 
+que les prédictions respectent des règles métier simples, comme l'absence de valeurs négatives 
+ou incohérentes. Enfin, il analyse la cohérence globale des résultats afin de s'assurer que le 
+comportement du modèle reste logique et fiable dans des conditions d'utilisation répétées.
 """
 
 import os
-import time
+import requests
 from datetime import datetime
-from fastapi.testclient import TestClient
-from src.api import app
 
-client = TestClient(app)
+# ============================================================
+# URL DE L'API RENDER
+# ============================================================
+
+BASE_URL = "https://api-prediction-consomation-energie.onrender.com"
 
 # ============================================================
 # REPORT CONFIG
 # ============================================================
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
 RESULT_DIR = os.path.join(BASE_DIR, "resultat_test")
 os.makedirs(RESULT_DIR, exist_ok=True)
 
@@ -42,12 +43,14 @@ def write_if_new_file():
         write("=========================================")
         write("BUSINESS LOGIC TEST REPORT")
         write("API FASTAPI - PREDICTION CONSOMMATION")
+        write(f"API cible : {BASE_URL}")
         write("=========================================\n")
 
 
 def start_session():
     write("\n#################################################")
     write(f"NEW TEST SESSION - {datetime.now()}")
+    write(f"API cible : {BASE_URL}")
     write("#################################################\n")
 
 
@@ -57,33 +60,41 @@ def start_session():
 
 def base_input():
     return {
-        "date": "2026-01-15",
-        "conso_j1": 62000,
-        "conso_j7": 61000,
-        "conso_moy_7j": 60500,
-        "temperature": 4.5,
+        "date":            "2026-01-15",
+        "conso_j1":        62000,
+        "conso_j7":        61000,
+        "conso_moy_7j":    60500,
+        "temperature":     4.5,
         "temperature_max": 8.0
     }
 
 
 # ============================================================
-# TEST UNIQUE : STABILITY SIMPLE
+# STABILITY (préfixe "run_" → non détectée par pytest)
 # ============================================================
 
-def test_prediction_stability(n=100):
+def run_prediction_stability(n=20):
     start_session()
     write("===== PREDICTION STABILITY TEST =====")
 
     payload = base_input()
     outputs = []
-    errors = 0
+    errors  = 0
 
-    for i in range(n):
+    for _ in range(n):
         try:
-            response = client.post("/predict", json=payload)
+            response = requests.post(
+                f"{BASE_URL}/predict",
+                json=payload,
+                timeout=30
+            )
 
             if response.status_code == 200:
-                outputs.append(response.json().get("prediction"))
+                pred = response.json().get("consommation_prevue_MW")
+                if pred is not None:
+                    outputs.append(round(pred, 2))
+                else:
+                    errors += 1
             else:
                 errors += 1
 
@@ -91,30 +102,27 @@ def test_prediction_stability(n=100):
             errors += 1
 
     unique_outputs = list(set(outputs))
+    stable         = len(unique_outputs) == 1
 
-    stable = len(unique_outputs) == 1
+    write(f"Total requests          : {n}")
+    write(f"Successful predictions  : {len(outputs)}")
+    write(f"Errors                  : {errors}")
+    write(f"Unique outputs          : {unique_outputs[:10]}")
+    write(f"Stable model            : {stable}")
 
-    write(f"Total requests: {n}")
-    write(f"Successful predictions: {len(outputs)}")
-    write(f"Errors: {errors}")
-    write(f"Unique outputs: {unique_outputs[:10]}")
-
-    write(f"\nSTABLE MODEL: {stable}")
-
-    # FINAL VERDICT
-    verdict = "SUCCESS ✅ (stable model)" if stable else "FAILED ❌ (unstable model)"
+    verdict = "SUCCESS ✅ (modèle stable)" if stable else "FAILED ❌ (modèle instable)"
 
     write("\n=========================================")
-    write(f"FINAL VERDICT: {verdict}")
+    write(f"FINAL VERDICT : {verdict}")
     write("=========================================")
 
     return stable
 
 
 # ============================================================
-# MAIN
+# MAIN — seul point d'entrée détecté par pytest
 # ============================================================
 
 def test_business_logic_suite():
     write_if_new_file()
-    test_prediction_stability()
+    run_prediction_stability()
