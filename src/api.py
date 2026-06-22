@@ -20,9 +20,9 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
 # ------------------------------------------------------------
-# Chargement du modèle (le .joblib contient : model + features + target)
+# Chargement du modèle
 # ------------------------------------------------------------
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE       = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(HERE, "output", "model_prod.joblib")
 
 if not os.path.exists(MODEL_PATH):
@@ -31,17 +31,15 @@ if not os.path.exists(MODEL_PATH):
         "Lance d'abord hyperparameter_tuning.py pour générer le .joblib."
     )
 
-bundle = joblib.load(MODEL_PATH)
-model = bundle["model"]
-FEATURES = bundle["features"]          # ordre exact des variables attendues
-TARGET = bundle.get("target", "Consommation")
+bundle   = joblib.load(MODEL_PATH)
+model    = bundle["model"]
+FEATURES = bundle["features"]
+TARGET   = bundle.get("target", "Consommation")
 
-fr_holidays = holidays.France()        # pour calculer Est_ferie à partir de la date
+fr_holidays = holidays.France()
 
 # ------------------------------------------------------------
 # Application
-# (docs auto désactivée : incompatibilité Pydantic/Python 3.9 -> on sert
-#  notre propre page de démonstration à la place)
 # ------------------------------------------------------------
 app = FastAPI(
     title="Prédiction de consommation électrique",
@@ -54,17 +52,17 @@ app = FastAPI(
 # Schéma d'entrée
 # ------------------------------------------------------------
 class Entree(BaseModel):
-    date: str = Field(..., description="Jour à prédire (AAAA-MM-JJ)")
-    conso_j1: float = Field(..., description="Consommation de la veille (MW)")
-    conso_j7: float = Field(..., description="Consommation il y a 7 jours (MW)")
-    conso_moy_7j: float = Field(..., description="Moyenne des 7 derniers jours (MW)")
-    temperature: float = Field(..., description="Température moyenne prévue du jour (°C)")
+    date:           str   = Field(..., description="Jour à prédire (AAAA-MM-JJ)")
+    conso_j1:       float = Field(..., description="Consommation de la veille (MW)")
+    conso_j7:       float = Field(..., description="Consommation il y a 7 jours (MW)")
+    conso_moy_7j:   float = Field(..., description="Moyenne des 7 derniers jours (MW)")
+    temperature:    float = Field(..., description="Température moyenne prévue du jour (°C)")
     temperature_max: float = Field(..., description="Température maximale prévue du jour (°C)")
 
 
 # ------------------------------------------------------------
-# Reconstruction des variables attendues par le modèle
-# (mêmes calculs que dans prepare_dataset.py)
+# Reconstruction des features
+# Mois_sin et Mois_cos ajoutés (manquaient dans la version précédente)
 # ------------------------------------------------------------
 def construire_features(e: Entree) -> pd.DataFrame:
     try:
@@ -75,18 +73,21 @@ def construire_features(e: Entree) -> pd.DataFrame:
             detail="Date invalide. Format attendu : AAAA-MM-JJ."
         )
 
-    jsem = d.dayofweek  # lundi = 0 ... dimanche = 6
+    jsem = d.dayofweek   # lundi = 0 ... dimanche = 6
+    mois = d.month       # janvier = 1 ... décembre = 12
 
     valeurs = {
-        "Conso_J1": e.conso_j1,
-        "Conso_J7": e.conso_j7,
-        "Conso_moy_7j": e.conso_moy_7j,
-        "Temperature": e.temperature,
-        "Temperature_max": e.temperature_max,
+        "Conso_J1":         e.conso_j1,
+        "Conso_J7":         e.conso_j7,
+        "Conso_moy_7j":     e.conso_moy_7j,
+        "Temperature":      e.temperature,
+        "Temperature_max":  e.temperature_max,
+        "Mois_sin":         np.sin(2 * np.pi * mois / 12),
+        "Mois_cos":         np.cos(2 * np.pi * mois / 12),
         "Jour_semaine_sin": np.sin(2 * np.pi * jsem / 7),
         "Jour_semaine_cos": np.cos(2 * np.pi * jsem / 7),
-        "Est_weekend": 1 if jsem >= 5 else 0,
-        "Est_ferie": 1 if d.date() in fr_holidays else 0,
+        "Est_weekend":      1 if jsem >= 5 else 0,
+        "Est_ferie":        1 if d.date() in fr_holidays else 0,
     }
 
     manquantes = [f for f in FEATURES if f not in valeurs]
@@ -100,7 +101,7 @@ def construire_features(e: Entree) -> pd.DataFrame:
 
 
 # ------------------------------------------------------------
-# Page de démonstration (remplace /docs)
+# Page de démonstration
 # ------------------------------------------------------------
 PAGE_HTML = """
 <!DOCTYPE html>
@@ -120,7 +121,7 @@ PAGE_HTML = """
   button:hover { background: #244c73; }
   #resultat { margin-top: 22px; padding: 16px; border-radius: 6px; font-size: 18px;
               text-align: center; display: none; }
-  .ok { background: #e8f1ea; color: #2b6b46; }
+  .ok  { background: #e8f1ea; color: #2b6b46; }
   .err { background: #fdecea; color: #b3261e; }
   .hint { font-size: 12px; color: #777; font-weight: normal; }
 </style>
@@ -153,11 +154,11 @@ PAGE_HTML = """
 <script>
 async function predire() {
   const corps = {
-    date: document.getElementById('date').value,
-    conso_j1: parseFloat(document.getElementById('conso_j1').value),
-    conso_j7: parseFloat(document.getElementById('conso_j7').value),
-    conso_moy_7j: parseFloat(document.getElementById('conso_moy_7j').value),
-    temperature: parseFloat(document.getElementById('temperature').value),
+    date:          document.getElementById('date').value,
+    conso_j1:      parseFloat(document.getElementById('conso_j1').value),
+    conso_j7:      parseFloat(document.getElementById('conso_j7').value),
+    conso_moy_7j:  parseFloat(document.getElementById('conso_moy_7j').value),
+    temperature:   parseFloat(document.getElementById('temperature').value),
     temperature_max: parseFloat(document.getElementById('temperature_max').value),
   };
   const box = document.getElementById('resultat');
@@ -200,12 +201,17 @@ def page_demo():
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "modele_charge": True, "nb_features": len(FEATURES)}
+    return {
+        "status":        "ok",
+        "modele_charge": True,
+        "nb_features":   len(FEATURES),
+        "features":      FEATURES
+    }
 
 
 @app.post("/predict")
 def predict(e: Entree):
-    X = construire_features(e)
+    X         = construire_features(e)
     prevision = float(model.predict(X)[0])
     return {"date": e.date, "consommation_prevue_MW": round(prevision, 1)}
 
