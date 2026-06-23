@@ -392,3 +392,69 @@ MAPE variation (points) : -1.01  (seuil : > 2 pts)
 ✅ PAS DE DRIFT — modèle prod stable sur les données actuelles
 ============================================================
 
+
+============================================================
+RUN DATE : 2026-06-23 10:04:14  |  MODE : RETRAIN
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+R2   : 0.9796
+MAPE : 1.9311 %
+
+
+============================================================
+RUN DATE : 2026-06-23 10:18:38  |  MODE : RETRAIN
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+Features : 9
+R2       : 0.9796
+MAPE     : 1.9311 %
+
+--- MODEL V2 (candidat) ---
+Features : 11
+R2       : 0.9788
+MAPE     : 1.9718 %
+
+--- ÉCARTS V2 vs PROD ---
+R2 amélioration (%)     : -0.08
+MAPE variation (points) : 0.04  (seuil critique : > 2 pts)
+
+--- VERDICT ---
+❌ V2 NON MEILLEUR — déploiement annulé, prod conservé
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-23 17:40:59  |  MODE : RETRAIN
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 1169
+
+--- MODEL PROD (en cours) ---
+Features : 9
+R2       : 0.9796
+MAPE     : 1.9311 %
+
+--- MODEL V2 (candidat) ---
+Features : 11
+R2       : 0.9797
+MAPE     : 1.9135 %
+
+--- ÉCARTS V2 vs PROD ---
+R2 amélioration (%)     : 0.01
+MAPE variation (points) : -0.02  (seuil critique : > 2 pts)
+
+📄 resultats_optimisation.csv mis à jour avec les métriques v2
+
+--- VERDICT ---
+✅ V2 MEILLEUR — déploiement autorisé
+============================================================
+
