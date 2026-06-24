@@ -87,3 +87,19 @@ Stable model            : True
 =========================================
 FINAL VERDICT : SUCCESS ✅ (modèle stable)
 =========================================
+
+#################################################
+NEW TEST SESSION - 2026-06-24 01:42:18.285047
+API cible : https://api-prediction-consomation-energie.onrender.com
+#################################################
+
+===== PREDICTION STABILITY TEST =====
+Total requests          : 20
+Successful predictions  : 19
+Errors                  : 1
+Unique outputs          : [67078.4]
+Stable model            : True
+
+=========================================
+FINAL VERDICT : SUCCESS ✅ (modèle stable)
+=========================================

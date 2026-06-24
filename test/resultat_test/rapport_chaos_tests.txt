@@ -84,3 +84,28 @@ Stress total time   : 56.17s
 Requests/sec        : 0.89
 Stress verdict      : SUCCESS ✅
 =========================================
+
+
+#################################################
+NEW TEST SESSION - 2026-06-24 01:50:47.866713
+API cible : https://api-prediction-consomation-energie.onrender.com
+#################################################
+
+===== CHAOS FUZZ TEST =====
+
+===== PERFORMANCE TEST =====
+
+===== STRESS TEST =====
+===== RESULT SUMMARY =====
+Fuzz requests    : 100
+Fuzz errors      : 0
+Fuzz crashes     : 0
+Fuzz verdict     : SUCCESS ✅
+Avg fuzz latency : 0.7639s
+P95 latency         : 1.0243s
+P99 latency         : 1.0365s
+Performance verdict : SUCCESS ✅
+Stress total time   : 37.06s
+Requests/sec        : 1.35
+Stress verdict      : SUCCESS ✅
+=========================================

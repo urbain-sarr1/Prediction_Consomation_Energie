@@ -1,44 +1,323 @@
-# consomption_prediction
+# Prédiction de la Consommation Électrique 🇫🇷⚡
 
-## ***ETAPE 1 : prépararation  dataset final***
-Voici les étapes à suivre afin de récupérer les données ( téléchargable depuis cet [URL](https://www.rte-france.com/donnees-publications/eco2mix-donnees-temps-reel/telecharger-indicateurs) ) afin de réaliser ce projet et comment procéder pour préparer le datset final.
-1. Télécharger les fichiers RTE (2014-2025)
-2. Lire les fichiers (**attention** ce n'est pas vraiment des fichiers excel)
-3. Fusionner les fichiers
-4. Garde que les colonnes : Date / Heure / Consommation (**Afin de construire un modèle de prédiction pertinent et facilement déployable, seules les colonnes Date, Heures et Consommation ont été conservées lors de la phase de préparation des données. Ces informations permettent de générer des variables explicatives temporelles (jour de la semaine, mois, week-end) ainsi que des variables historiques de consommation (J-1, J-7, moyennes mobiles), reconnues comme particulièrement pertinentes pour la prévision de séries temporelles. Les colonnes de prévision fournies par RTE ont été exclues afin d'éviter toute fuite d'information (data leakage), tandis que les autres variables de production énergétique n'ont pas été retenues dans le cadre de cette première approche afin de limiter la complexité du modèle et de faciliter son interprétation, sa maintenabilité et son déploiement, Les variables de production énergétique telles que le nucléaire, le gaz ou l'éolien n'ont pas été retenues car elles correspondent à des valeurs observées et ne sont pas nécessairement connues au moment de la prédiction. Afin d'éviter l'utilisation d'informations indisponibles en situation réelle, nous avons privilégié des variables temporelles et historiques directement accessibles lors de la prévision.**)
-5. Nettoyer les données
-6. Crée une vraie colonne datetime
-7. Regroupe par jour
-8. Calcule la consommation moyenne journalière
-9. Crée des variables calendaires
-10. Crée des variables historiques
-11. Sauvegarde le dataset final 
+API de prédiction de la consommation électrique journalière en France, basée sur des données RTE Éco2mix (2014–2025) et déployée sur le cloud via Render.
 
+---
 
-## ***Etape 2 : entraînement de modèles*** 
-On prépare le dataset journalier préparé, on entraîne plusieurs modèles de régression, on compare leurs performances sur un jeu de test puis on conserve le meilleur pour l'étape suivante de déploiement.
-1. Charger le dataset final
-2. Définir features et target
-3. Découper les données train/test (80% train et 20% test)
-4.  Définir les modèles de régression (arbre de décission, randomForest, KNN et MLPRegressor)
-5. Faire une boucle pour entraîner chaque modèle, faire les prédictions; calculer R², calculer RMSE et finalement calculer le MAPE. 
-6. Stocker les résultats de chaque modèle dans une structure
-7. Transormer les résultats en dataframe
-8. Sauvegarder les résultats dans le dossier *output*
-9. ***exploration des résultats*** : 
-    - Les résultats expérimentaux montrent que le modèle Random Forest est le plus performant parmi les modèles testés. Il obtient le meilleur coefficient de détermination (R² = 0,9724), ainsi que les erreurs les plus faibles en RMSE (1511,68) et en MAPE (1,99 %). Ces résultats montrent que le modèle offre à la fois une excellente capacité d’ajustement et une faible erreur de prédiction. En comparaison, l’arbre de décision, le KNN et le réseau de neurones présentent des performances inférieures. Le modèle Random Forest a donc été retenu pour la suite du projet, notamment pour son bon compromis entre précision, robustesse et facilité d’exploitation en production
+## 🏗️ Architecture du projet
+DATA (RTE Éco2mix)
 
-        ![résltats](./output/image/resultats_models.png)
+↓
 
-10. Sauvegarder les résultats du ***Random Forest*** 
-11. Sauvegarder le modèle
+Préparation & Feature Engineering
 
-## ***Etape 3 : création API pour la prédiction*** 
-Le modèle retenu, Random Forest Regressor, a été intégré dans une API REST développée avec FastAPI. L’API charge le modèle sauvegardé au format joblib et expose un endpoint /predict permettant de fournir les variables explicatives du jour à prédire et de retourner une estimation de la consommation journalière. Cette approche permet d’isoler le modèle dans un service réutilisable, testable et facilement déployable dans un conteneur Docker.
+↓
 
-Une validation métier a été ajoutée à l’API afin d’éviter les prédictions produites à partir de données incohérentes ou non réalistes. Les contrôles portent notamment sur la cohérence entre le jour de la semaine et l’indicateur week-end, ainsi que sur les bornes admissibles des variables historiques de consommation. Cette validation améliore la robustesse du service et participe à la maintenabilité de la solution en production.
+Optimisation des hyperparamètres (GridSearchCV + TimeSeriesSplit)
 
-**uvicorn src.api:app --reload**
+↓
 
-**docker build -t consumption-api .**
-**docker run -p 8000:8000 consumption-api**
+Évaluation (Train / Val / Test)
+
+↓
+
+Swap sécurisé des modèles (prod → backup → v2 → prod)
+
+↓
+
+API FastAPI conteneurisée (Docker)
+
+↓
+
+Déploiement cloud (Render)
+
+↓
+
+Monitoring post-déploiement
+
+---
+
+## 📁 Structure du projet
+CODE/
+
+├── src/
+
+│   ├── api.py                          # API FastAPI
+
+│   ├── prepare_dataset.py              # Préparation du dataset
+
+│   ├── train_models.py                 # Entraînement des modèles
+
+│   ├── optimisation_hyperparametres.py # Optimisation GridSearchCV
+
+│   ├── retrain.py                      # Pipeline de réentraînement
+
+│   ├── deploy_cloud.py                 # Déploiement sur Render
+
+│   └── output/
+
+│       ├── dataset_journalier_enrichi.csv
+
+│       ├── model_prod.joblib
+
+│       ├── model_v2.joblib
+
+│       ├── model_backup.joblib
+
+│       └── resultats_optimisation.csv
+
+├── test/
+
+│   ├── test_navigation.py              # Tests des endpoints API
+
+│   ├── test_fuzz_chaos.py              # Tests chaos / fuzz / stress
+
+│   ├── test_charge_stabilite.py        # Tests charge et stabilité
+
+│   ├── test_business_logic.py          # Tests cohérence des prédictions
+
+│   ├── test_performances.py            # Comparaison prod vs v2
+
+│   ├── test_monitoring_prod.py         # Monitoring post-déploiement
+
+│   └── resultat_test/                  # Rapports générés automatiquement
+
+├── Dockerfile
+
+├── docker-compose.yml
+
+├── render.yaml
+
+└── requirements.txt
+
+---
+
+## ⚙️ Étape 1 — Préparation du dataset
+
+Les données sont téléchargeables depuis [RTE Éco2mix](https://www.rte-france.com/donnees-publications/eco2mix-donnees-temps-reel/telecharger-indicateurs).
+
+```bash
+python src/prepare_dataset.py
+```
+
+**Ce que fait ce script :**
+- Télécharge et fusionne les fichiers RTE (2014–2025)
+- Conserve uniquement les colonnes `Date`, `Heure` et `Consommation` pour éviter tout data leakage
+- Nettoie les données et crée une colonne datetime
+- Regroupe par jour et calcule la consommation moyenne journalière
+- Crée des variables calendaires (`Mois_sin`, `Mois_cos`, `Jour_semaine_sin`, `Jour_semaine_cos`, `Est_weekend`, `Est_ferie`)
+- Crée des variables historiques (`Conso_J1`, `Conso_J7`, `Conso_moy_7j`)
+- Sauvegarde le dataset final dans `src/output/dataset_journalier_enrichi.csv`
+
+> Les variables de production énergétique (nucléaire, gaz, éolien) ont été exclues car elles correspondent à des valeurs observées non disponibles au moment de la prédiction.
+
+---
+
+## 🤖 Étape 2 — Entraînement des modèles
+
+```bash
+python src/train_models.py
+```
+
+**Modèles comparés :**
+
+| Modèle | R² | RMSE | MAPE |
+|---|---|---|---|
+| Random Forest | 0.972 | 1511 | 1.99% |
+| Gradient Boosting | - | - | - |
+| Arbre de décision | - | - | - |
+| KNN | - | - | - |
+| MLP | - | - | - |
+| **XGBoost** ✅ | **0.978** | - | **~2%** |
+
+**Découpage temporel :**
+- Train : `Annee < 2022`
+- Validation : `Annee == 2022`
+- Test : `Annee >= 2023`
+
+---
+
+## 🔧 Étape 3 — Optimisation des hyperparamètres
+
+```bash
+python src/optimisation_hyperparametres.py
+```
+
+- Utilise `GridSearchCV` avec `TimeSeriesSplit` (5 folds) pour éviter toute fuite d'information
+- Sélection du meilleur modèle sur la validation (`MAPE_val`)
+- Évaluation finale sur le jeu de test (lecture seule)
+- Sauvegarde du modèle optimisé dans `src/output/model_v2.joblib`
+
+---
+
+## 🔄 Étape 4 — Pipeline de réentraînement
+
+```bash
+python src/retrain.py
+```
+
+**Le pipeline effectue automatiquement :**
+STEP 1 → Optimisation des hyperparamètres  → model_v2.joblib
+
+STEP 2 → Comparaison prod vs v2 (R², MAPE)
+
+STEP 3 → Si v2 meilleur → swap sécurisé des modèles
+
+prod   → backup
+
+v2     → prod
+
+backup → v2
+
+Si v2 non meilleur → prod conservé
+
+> Le swap utilise des fichiers `.tmp` intermédiaires pour garantir qu'aucun modèle n'est perdu même en cas de crash.
+
+---
+
+## 🚀 Étape 5 — API FastAPI
+
+**Lancer en local :**
+```bash
+uvicorn src.api:app --reload
+```
+
+**Endpoints disponibles :**
+
+| Méthode | Endpoint | Description |
+|---|---|---|
+| `GET` | `/` | Interface de démonstration |
+| `GET` | `/health` | État du service et du modèle |
+| `POST` | `/predict` | Prédiction de la consommation |
+
+**Exemple de requête `/predict` :**
+```json
+{
+  "date": "2025-10-01",
+  "conso_j1": 46217.92,
+  "conso_j7": 46122.92,
+  "conso_moy_7j": 46263.90,
+  "temperature": 13.74,
+  "temperature_max": 19.25
+}
+```
+
+**Réponse :**
+```json
+{
+  "date": "2025-10-01",
+  "consommation_prevue_MW": 46898.0
+}
+```
+
+> Vraie consommation ce jour : **46 769 MW** → écart de **0.27%** ✅
+
+---
+
+## 🐳 Étape 6 — Docker
+
+**Build et lancement :**
+```bash
+docker-compose up -d
+```
+
+**Arrêt :**
+```bash
+docker-compose down
+```
+
+L'API sera accessible sur `http://localhost:8000`.
+
+---
+
+## ☁️ Étape 7 — Déploiement cloud (Render)
+
+**Déployer après un réentraînement :**
+```bash
+python src/deploy_cloud.py "new model prod"
+```
+
+Ce script effectue automatiquement :
+git add src/output/model_prod.joblib
+
+git commit -m "..."
+
+git push origin main   → Render rebuild et redémarre automatiquement
+
+**API en production :**
+https://api-prediction-consomation-energie.onrender.com
+
+---
+
+## 🧪 Étape 8 — Tests
+
+**Lancer tous les tests :**
+```bash
+pytest test/ -v
+```
+
+**Ou test par test :**
+```bash
+pytest test/test_navigation.py -v        # Endpoints API
+pytest test/test_fuzz_chaos.py -v        # Chaos / Fuzz / Stress
+pytest test/test_charge_stabilite.py -v  # Charge et stabilité
+pytest test/test_business_logic.py -v    # Cohérence des prédictions
+pytest test/test_performances.py -v      # Comparaison prod vs v2
+pytest test/test_monitoring_prod.py -v   # Monitoring post-déploiement
+```
+
+**Résultats actuels (production Render) :**
+
+| Test | Statut |
+|---|---|
+| Navigation | ✅ SUCCESS |
+| Chaos / Fuzz | ✅ SUCCESS |
+| Charge / Stabilité | ✅ SUCCESS |
+| Business Logic | ✅ SUCCESS |
+| Monitoring prod | ✅ SUCCESS |
+
+---
+
+## 📊 Performances en production
+
+| Métrique | Valeur |
+|---|---|
+| R² (test) | 0.978 |
+| MAPE (test) | ~2% |
+| R² (prod Render) | 0.950 |
+| MAPE (prod Render) | 2.70% |
+| Verdict monitoring | ✅ PROD STABLE |
+
+---
+
+## 🛠️ Installation locale
+
+```bash
+# Cloner le repo
+git clone https://github.com/urbain-sarr1/Prediction_Consomation_Energie.git
+cd Prediction_Consomation_Energie
+
+# Installer les dépendances
+pip install -r requirements.txt
+
+# Préparer le dataset
+python src/prepare_dataset.py
+
+# Lancer l'API
+uvicorn src.api:app --reload
+```
+
+---
+
+## 📦 Dépendances principales
+
+| Package | Version |
+|---|---|
+| fastapi | 0.115.6 |
+| uvicorn | 0.34.0 |
+| scikit-learn | 1.7.2 |
+| xgboost | 3.2.0 |
+| pandas | 2.2.3 |
+| numpy | 1.26.4 |
+| joblib | 1.4.2 |
+| holidays | 0.64 |

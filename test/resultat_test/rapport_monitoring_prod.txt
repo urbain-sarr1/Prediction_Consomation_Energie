@@ -306,3 +306,111 @@ MAPE variation (points) : 90.15  (seuil : > 2 pts)
 ⚠️ DRIFT DÉTECTÉ — performances dégradées
 ============================================================
 
+
+============================================================
+RUN DATE : 2026-06-23 17:53:17
+API cible : https://api-prediction-consomation-energie.onrender.com
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 100
+
+--- BASELINE ENREGISTRÉE (modèle prod) ---
+R2 ref   : 0.9774
+MAPE ref : 2.0562 %
+
+--- APPELS API RENDER ---
+Requêtes envoyées   : 100
+Prédictions valides : 100
+Échecs / erreurs    : 0
+
+--- PERFORMANCE API RENDER (prod) ---
+R2 prod   : -39.5941
+MAPE prod : 91.6139 %
+
+--- ÉCARTS vs BASELINE ---
+R2 drop (%)             : 4151.03  (seuil : > 5 %)
+MAPE variation (points) : 89.56  (seuil : > 2 pts)
+
+--- VERDICT ---
+⚠️ DRIFT DÉTECTÉ — performances dégradées
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-24 00:22:19
+API cible : https://api-prediction-consomation-energie.onrender.com
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 100
+
+--- BASELINE ENREGISTRÉE (modèle prod) ---
+R2 ref   : 0.9774
+MAPE ref : 2.0562 %
+
+--- APPELS API RENDER ---
+Requêtes envoyées   : 100
+Prédictions valides : 0
+Échecs / erreurs    : 100
+
+
+============================================================
+RUN DATE : 2026-06-24 00:26:50
+API cible : https://api-prediction-consomation-energie.onrender.com
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 100
+
+--- BASELINE ENREGISTRÉE (modèle prod) ---
+R2 ref   : 0.9774
+MAPE ref : 2.0562 %
+
+--- APPELS API RENDER ---
+Requêtes envoyées   : 100
+Prédictions valides : 100
+Échecs / erreurs    : 0
+
+--- PERFORMANCE API RENDER (prod) ---
+R2 prod   : -39.5941
+MAPE prod : 91.6139 %
+
+--- ÉCARTS vs BASELINE ---
+R2 drop (%)             : 4151.03  (seuil : > 5 %)
+MAPE variation (points) : 89.56  (seuil : > 2 pts)
+
+--- VERDICT ---
+⚠️ DRIFT DÉTECTÉ — performances dégradées
+============================================================
+
+
+============================================================
+RUN DATE : 2026-06-24 01:23:50
+API cible : https://api-prediction-consomation-energie.onrender.com
+============================================================
+
+Période test  : Annee >= 2023
+Jours de test : 100
+
+--- BASELINE ENREGISTRÉE (modèle prod) ---
+R2 ref   : 0.9774
+MAPE ref : 2.0562 %
+
+--- APPELS API RENDER ---
+Requêtes envoyées   : 100
+Prédictions valides : 100
+Échecs / erreurs    : 0
+
+--- PERFORMANCE API RENDER (prod) ---
+R2 prod   : 0.9507
+MAPE prod : 2.6971 %
+
+--- ÉCARTS vs BASELINE ---
+R2 drop (%)             : 2.73  (seuil : > 5 %)
+MAPE variation (points) : 0.64  (seuil : > 2 pts)
+
+--- VERDICT ---
+✅ PROD STABLE
+============================================================
+

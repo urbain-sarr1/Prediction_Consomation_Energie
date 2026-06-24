@@ -134,3 +134,78 @@ Soak P99          : 3.4794s
 Soak errors       : 0
 FINAL VERDICT     : SUCCESS ✅
 =========================================
+
+=========================================
+NEW EXECUTION - 2026-06-24 01:45:15.961554
+API cible : https://api-prediction-consomation-energie.onrender.com
+=========================================
+
+
+#################################################
+NEW TEST SESSION - 2026-06-24 01:45:15.965440
+API cible : https://api-prediction-consomation-energie.onrender.com
+#################################################
+===== LOAD RAMP TEST =====
+
+[LOAD STEP 10]
+Avg latency : 0.7339s
+P95 latency : 0.9871s
+Errors      : 0
+Req/sec     : 1.36
+VERDICT     : SUCCESS ✅
+
+[LOAD STEP 20]
+Avg latency : 0.7343s
+P95 latency : 1.2255s
+Errors      : 0
+Req/sec     : 1.36
+VERDICT     : SUCCESS ✅
+
+[LOAD STEP 50]
+Avg latency : 0.7138s
+P95 latency : 1.0240s
+Errors      : 0
+Req/sec     : 1.40
+VERDICT     : SUCCESS ✅
+
+[LOAD STEP 100]
+Avg latency : 0.6812s
+P95 latency : 0.9963s
+Errors      : 0
+Req/sec     : 1.47
+VERDICT     : SUCCESS ✅
+
+
+#################################################
+NEW TEST SESSION - 2026-06-24 01:47:21.822316
+API cible : https://api-prediction-consomation-energie.onrender.com
+#################################################
+===== SOAK TEST =====
+
+[CHECKPOINT 50] avg latency = 0.7531s
+[CHECKPOINT 100] avg latency = 0.7871s
+[CHECKPOINT 150] avg latency = 0.7604s
+[CHECKPOINT 200] avg latency = 0.6840s
+
+===== SOAK SUMMARY =====
+Total requests : 200
+Avg latency    : 0.7461s
+P95 latency    : 1.0251s
+P99 latency    : 1.1801s
+Errors         : 0
+Req/sec        : 1.34
+VERDICT        : SUCCESS ✅
+=========================================
+
+
+=========================================
+FINAL RESULT SUMMARY
+=========================================
+Load ramp steps   : [10, 20, 50, 100]
+Load ramp verdicts: ['SUCCESS ✅', 'SUCCESS ✅', 'SUCCESS ✅', 'SUCCESS ✅']
+Soak avg latency  : 0.7461s
+Soak P95          : 1.0251s
+Soak P99          : 1.1801s
+Soak errors       : 0
+FINAL VERDICT     : SUCCESS ✅
+=========================================
